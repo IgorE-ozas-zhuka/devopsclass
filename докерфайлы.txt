@@ -1,0 +1,36 @@
+#MySQL
+FROM mysql:5.7.25
+LABEL "Author"="IEroshkin"
+LABEL "Project"="VProfile_DZ2"
+ADD db_backup.sql docker-entrypoint-initdb.d/db_backup.sql
+ENV MYSQL_ROOT_PASSWORD=admin123
+ENV MYSQL_DATABASE=db01
+
+#Memcached
+FROM memcached:latest
+LABEL "Author"="IEroshkin"
+LABEL "Project"="VProfile_DZ2"
+EXPOSE 11211
+
+
+#RabbitMQ
+FROM rabbitmq:latest
+LABEL "Author"="IEroshkin"
+LABEL "Project"="VProfile_DZ2"
+EXPOSE 5672
+ENV RABBITMQ_DEFAULT_USER=test
+ENV RABBITMQ_DEFAULT_PASS=test
+
+#Tomcat
+FROM tomcat:8-jre11
+RUN rm -rf /usr/local/tomcat8/webapps/*
+COPY vprofile-v2.war /usr/local/tomcat/webapps/ROOT.war
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+WORKDIR /usr/local/tomcat/
+VOLUME /usr/local/tomcat/webapps
+
+#Nginx
+FROM nginx:latest
+RUN rm -rf /etc/nginx/conf.d/default.conf
+COPY app.conf /etc/nginx/conf.d/vproapp.conf
