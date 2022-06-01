@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
 	build.vm.provider "virtualbox" do |vb|
 		vb.memory = "2048"
 		vb.name = "dz3_jenkins"
-		vb.cpus = "1"
+		vb.cpus = "2"
 	end
 	build.vm.provision "shell", path: "userdata/jenkins-setup.sh"
   end
@@ -20,8 +20,8 @@ Vagrant.configure("2") do |config|
 	nexus.vm.hostname = "nexus"
     nexus.vm.network "private_network", ip: "192.168.3.71"
 	nexus.vm.provider "virtualbox" do |vb|
-     vb.memory = "4096"
-	 vb.cpus = "4"
+     vb.memory = "2560"
+	 vb.cpus = "2"
      vb.name = "dz3_nexus"
 	end
 	nexus.vm.provision "shell", path: "userdata/nexus-setup.sh"
