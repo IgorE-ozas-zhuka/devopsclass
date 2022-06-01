@@ -1,5 +1,5 @@
 - name: Deploy containers
- hosts: appsrvgrp
+  hosts: appsrvgrp
   become: yes
   tasks:
     - name: Include vars
