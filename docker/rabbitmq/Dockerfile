@@ -1,0 +1,6 @@
+FROM rabbitmq:latest
+LABEL "Author"="IEroshkin"
+LABEL "Project"="VProfile_DZ2"
+EXPOSE 5672
+ENV RABBITMQ_DEFAULT_USER=test
+ENV RABBITMQ_DEFAULT_PASS=test
